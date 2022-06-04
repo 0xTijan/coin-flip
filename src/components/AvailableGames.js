@@ -1,82 +1,105 @@
+import userEvent from "@testing-library/user-event";
 import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
-import { BannerStrip, getEllipsisTxt } from "web3uikit";
+import { BannerStrip, Button, getEllipsisTxt, Select, Icon } from "web3uikit";
 import { ABI, ADDRESS } from "../contract";
-import { getItem } from "../helpers";
+import { getItem, OPTIONS, renderAddress } from "../helpers";
 
-const AvailableGames = () => {
-  const [games, setGames] = useState([]);
-  const { Moralis } = useMoralis();
+const AvailableGames = ({ refresh, games, loading }) => {
+  const { Moralis, user } = useMoralis();
+  const [option, setOption] = useState(null);
 
-  const getGames = async() => {
+  const joinGame = async(game) => {
     try{
+      console.log("Joining Game:");
+      console.log(game);
+
+      if(option == null) return alert("Please select your item!")
+      if(game.player1.toLowerCase() == user.get("ethAddress").toLowerCase()) return alert("Cannot join the game you created!");
+
       const readOptions = {
         contractAddress: ADDRESS,
-        functionName: "getLastId",
+        functionName: "joinGame",
         abi: ABI,
-      };
-      const lastId = await Moralis.executeFunction(readOptions);
-
-      let _games = [];
-      for(let i = 0; i < lastId.toNumber(); i++) {
-        const readOptions = {
-          contractAddress: ADDRESS,
-          functionName: "getGameForId",
-          abi: ABI,
-          params: {
-            id: i
-          }
-        };
-        
-        const result = await Moralis.executeFunction(readOptions);
-
-        if(result.state != 1) {
-          _games.push({
-            id: result.id.toNumber(),
-            player1: result.player1,
-            player2: result.player2,
-            player1Option: result.player1Option,
-            player2Option: result.player2Option,
-            winner: result.winner,
-            prize: Moralis.Units.FromWei(result.prize),
-            state: result.state
-          })
+        msgValue: Moralis.Units.ETH(game.prize),
+        params: {
+          _gameId: game.id,
+          option: option
         }
-      }
-      console.log(_games);
-      setGames(_games);
+      };
+      console.log(readOptions)
+      const tx = await Moralis.executeFunction(readOptions);
+      console.log(tx)
+      let receipt = await tx.wait();
+      console.log(receipt)
+
+      console.log("joined")
+      alert("Joined Successfuly!")
     }catch(err){
       console.log(err)
     }
   }
 
-  useEffect(() => {
-    getGames();
-  }, [])
+  const deleteGame = async(game) => {
+    try{
+      console.log("deleting game")
+      console.log(game)
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  const getOptions = (player1Option) => {
+    let toReturn = [];
+    OPTIONS.map(option => {
+      if(option.id != player1Option) {
+        toReturn.push(option)
+      }
+    }); 
+    return toReturn;
+  }
 
   return(
     <div style={{ maxWidth: "50%" }}>
-      {/*<BannerStrip
-          buttonConfig={{
-            onClick: () => console.log("refresh"),
-            text: 'Refresh'
-          }}
-          buttonDisplayed
-        text="Available Games to Join"
-        type="standard"
-        />>*/}
-        <h1>Available Games</h1>
-        <div>
-          {games.map(game => {
-            return(
-              <div>
-                <p>Creator: {getEllipsisTxt(game.player1)}</p>
-                <p>Prize: {game.prize} ETH</p>
-                <p>Creator's Item: {getItem(game.player1Option)}</p>
-              </div>
-            )
-          })}
-        </div>
+      <h1>Available Games</h1>
+      <div>
+        {games.map(game => {
+          let bool = game.player1.toLowerCase() == user.get("ethAddress").toLowerCase();
+          return(
+            <div style={{ border: "1px solid blue" }}>
+              <p>Creator: {renderAddress(bool, game.player1)}</p>
+              <p>Prize: {game.prize} BNB</p>
+              <p>Creator's Item: {getItem(game.player1Option)}</p>
+              {!bool ? (
+                <Select
+                  label="You Item"
+                  onBlurTraditional={function noRefCheck(){}}
+                  onChange={(event) => setOption(event.id)}
+                  onChangeTraditional={function noRefCheck(){}}
+                  options={getOptions(game.player1Option)}
+                />
+              ):null}
+              <Button
+                text={bool ? "Delete" : "Join"}
+                onClick={!bool ? (() => joinGame(game)) : (() => deleteGame(game))}
+                theme="primary"
+                type="button"
+              />
+            </div>
+          )
+        })}
+        {loading ? (
+          <div>
+            <p>Loading . . . Please wait!</p>
+          </div>
+        ):(
+          games.length == 0 ? (
+            <div>
+              <p>There are no games open currently, but you can create one yourself!</p> 
+            </div>
+          ):null
+        )}
+      </div>
     </div>
   )
 }
