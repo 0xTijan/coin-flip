@@ -1,4 +1,4 @@
-export const ADDRESS = "0xc4A48e08458b00a823ccDa4cE145043D529199F5";
+export const ADDRESS = "0xE5DD45641AD0fD9d59a307812876080fb7175003";
 export const ABI = [
   {
     "inputs": [
@@ -164,6 +164,19 @@ export const ABI = [
     "name": "createGame",
     "outputs": [],
     "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gameId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteGame",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

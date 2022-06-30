@@ -6,8 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { MoralisProvider } from 'react-moralis';
 import { NotificationProvider } from 'web3uikit';
 
-const APP_ID = "J76pjKRxO4Z43QS577aFvnuWhHkFHUtHKmyCwtGS";
-const SERVER_URL = "https://jnporhrnkpzw.usemoralis.com:2053/server";
+const APP_ID = "83Reu8JlXgzEg9V1drN0OADuopa08eCSPLXz4czs";
+const SERVER_URL = "https://kivt14y98mje.usemoralis.com:2053/server";
 
 const Application = () => {
   const isServerInfo = APP_ID && SERVER_URL ? true : false;

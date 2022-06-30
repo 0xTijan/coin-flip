@@ -1,38 +1,78 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+ html{
+  background-color: white;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
+  padding: 1vw;
 }
 
-.App-link {
-  color: #61dafb;
+.game {
+  background-color: rgb(242, 242, 255);
+  padding: 1rem;
+  border-radius: 1rem;
+  width: 40vw;
+  margin-bottom: 2vh;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.title {
+  text-align: center;
+  font-weight: 800;
+  font-size: 2.75rem;
+}
+
+.balance {
+  margin-left: auto;
+  margin-right: auto;
+  width: min-content;
+  margin-bottom: 2vh;
+}
+
+.btns {
+  margin-left: auto;
+  margin-right: auto;
+  width: min-content;
+  margin-bottom: 2vh;
+}
+
+.create-div {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(242, 242, 255);
+  padding: 2rem;
+  border-radius: 2rem;
+  margin: 4vh;
+}
+
+.create-div h1 {
+  font-weight: 800;
+  font-size: 2.25rem;
+}
+
+.create-div p {
+  font-weight: 300;
+  font-size: 1.5rem;
+  margin-bottom: 5vh;
+}
+
+.subtitle h1 {
+  font-weight: 800;
+  font-size: 2.25rem;
+}
+
+.subtitle p {
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+.connect-div {
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  text-align: center;
+  margin-top: 10vh;
+}
+
+.connect-div h1 {
+  font-weight: 300;
+  font-size: 2.25rem;
 }

@@ -1,9 +1,9 @@
 import userEvent from "@testing-library/user-event";
 import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
-import { BannerStrip, Button, getEllipsisTxt, Select, Icon } from "web3uikit";
+import { BannerStrip, Button, getEllipsisTxt, Select, Tag } from "web3uikit";
 import { ABI, ADDRESS } from "../contract";
-import { getItem, OPTIONS, renderAddress } from "../helpers";
+import { getItem, getState, OPTIONS, renderAddress } from "../helpers";
 
 const AvailableGames = ({ refresh, games, loading }) => {
   const { Moralis, user } = useMoralis();
@@ -32,7 +32,7 @@ const AvailableGames = ({ refresh, games, loading }) => {
       console.log(tx)
       let receipt = await tx.wait();
       console.log(receipt)
-
+      await refresh();
       console.log("joined")
       alert("Joined Successfuly!")
     }catch(err){
@@ -44,6 +44,22 @@ const AvailableGames = ({ refresh, games, loading }) => {
     try{
       console.log("deleting game")
       console.log(game)
+
+      const readOptions = {
+        contractAddress: ADDRESS,
+        functionName: "deleteGame",
+        abi: ABI,
+        params: {
+          _gameId: game.id,
+        }
+      };
+      console.log(readOptions)
+      const tx = await Moralis.executeFunction(readOptions);
+      console.log(tx)
+      let receipt = await tx.wait();
+      console.log(receipt)
+
+      alert("Game Deleted!")
     }catch(err){
       console.log(err)
     }
@@ -60,22 +76,22 @@ const AvailableGames = ({ refresh, games, loading }) => {
   }
 
   return(
-    <div style={{ maxWidth: "50%" }}>
+    <div className="subtitle" style={{ maxWidth: "50%" }}>
       <h1>Available Games</h1>
       <div>
-        {games.map(game => {
+        {games.filter(game => {
+          if(game.state == 0) return game;
+        }).map(game => {
           let bool = game.player1.toLowerCase() == user.get("ethAddress").toLowerCase();
           return(
-            <div style={{ border: "1px solid blue" }}>
-              <p>Creator: {renderAddress(bool, game.player1)}</p>
-              <p>Prize: {game.prize} BNB</p>
-              <p>Creator's Item: {getItem(game.player1Option)}</p>
+            <div className="game">
+              <p><b>Creator:</b> {renderAddress(bool, game.player1)}</p>
+              <p><b>Prize:</b> {game.prize} BNB</p>
+              <p><b>Creator's Item:</b> {getItem(game.player1Option)}</p>
               {!bool ? (
                 <Select
                   label="You Item"
-                  onBlurTraditional={function noRefCheck(){}}
                   onChange={(event) => setOption(event.id)}
-                  onChangeTraditional={function noRefCheck(){}}
                   options={getOptions(game.player1Option)}
                 />
               ):null}
@@ -85,12 +101,16 @@ const AvailableGames = ({ refresh, games, loading }) => {
                 theme="primary"
                 type="button"
               />
+              <Tag
+                color="blue"
+                text={getState(0)}
+              />
             </div>
           )
         })}
         {loading ? (
           <div>
-            <p>Loading . . . Please wait!</p>
+            <p>Loading . . . Please wait! <br/> Try refreshing if nothing shows!</p>
           </div>
         ):(
           games.length == 0 ? (

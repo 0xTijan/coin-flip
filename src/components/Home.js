@@ -31,7 +31,7 @@ const Home = () => {
         abi: ABI,
       };
       const lastId = await Moralis.executeFunction(readOptions);
-
+      console.log("Last ID: " + lastId)
       let _games = [];
       for(let i = 0; i < lastId.toNumber(); i++) {
         const readOptions = {
@@ -65,42 +65,64 @@ const Home = () => {
   }
 
   const refresh = async() => {
-    await getGames();
+    if(isWeb3Enabled) await getGames();
   }
+
+  useEffect(() => {
+    if(isWeb3Enabled) refresh();
+  }, [])
+
+  useEffect(() => {
+    if(isWeb3Enabled) refresh();
+  }, [isWeb3Enabled])
+
 
   return(
     <>
+      <div>
+        <h1 className="title">Mulitplayer Decentralized CoinFlip Game</h1>
+      </div>
       {!user || !isWeb3Enabled ? (
-        <div>
+        <div className="connect-div">
           <h1>Connect your wallet to continue:</h1>
-          <ConnectButton />
+          <div className="balance"><ConnectButton /></div>
         </div>
       ):(
         chainId == CHAIN_ID ? (
           <>
-          <ConnectButton />
-          <Button
-            text="Refresh"
-            onClick={() => refresh()}
-            theme="secondary"
-            type="button"
-          />
+          <div>
+            <div className="balance">
+              <ConnectButton />
+            </div>
+            <div className="btns">
+              <Button
+                text="Refresh"
+                onClick={() => refresh()}
+                theme="secondary"
+                type="button"
+                size="large"
+                icon="reload"
+              />
+            </div>
+          </div>
           <div style={{ display: "flex", flexDirection: "row", minHeight: "50vh", justifyContent: "space-evenly" }}>
             <AvailableGames refresh={refresh} games={games} loading={loading} />
             <History refresh={refresh} games={games} loading={loading} />
           </div>
-          <hr />
-          <div>
-            <CreateGame />
-          </div>
+          <CreateGame refresh={refresh} />
           </>
         ):(
-          <div>
+          <div className="connect-div">
             <h1>Worng Network, please switch to BSC Testnet!</h1>
-            <Button
-              text="Switch Chain"
-              onClick={() => switchToKovan()}
-            />
+            <div className="balance">
+              <Button
+                text="Switch Chain"
+                icon="bnb"
+                size="large"
+                type="secondary"
+                onClick={() => switchToKovan()}
+              />
+            </div>
           </div>
         )
       )}

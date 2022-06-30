@@ -1,10 +1,9 @@
 import { getEllipsisTxt } from "web3uikit";
 
 export const getItem = (id) => {
-  if(id == 0) return "Rock";
-  if(id == 1) return "Paper";
-  if(id == 2) return "Scissors";
-  if(id == 3) return "Not set";
+  if(id == 0) return "😎 Head";
+  if(id == 1) return "🐈 Tail";
+  if(id == 2) return "Not set";
 }
 
 export const getState = (id) => {
@@ -21,17 +20,27 @@ export const renderAddress = (user, address) => {
 export const OPTIONS = [
   {
     id: 0,
-    label: 'Rock',
-    prefix: '⛰'
+    label: 'Head',
+    prefix: '😎'
   },
   {
     id: 1,
-    label: 'Paper',
-    prefix: '🍃'
-  },
-  {
-    id: 2,
-    label: 'Scissors',
-    prefix: "✂"
+    label: 'Tail',
+    prefix: '🐈'
   }
 ];
+
+
+/**
+ * GAME_STATE:
+ *  OPEN - 0
+ *  CLOSED - 1
+ *  GETTING_WINNER - 2
+ */
+
+/**
+ * GAME_OPTIONS:
+ *  HEAD - 0
+ *  TAIL - 1
+ *  NOT_SET - 2
+ */
