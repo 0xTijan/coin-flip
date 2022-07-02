@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+# Coin Flip
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Coin Flip is a **decentralized multiplayer blockchain game**, in which users must bet more than $5 of testnet BNB to be able to play against each other. You can create your own game (you can set a bet as big as you want) and other people will be able to join the game you have created. Users can also join any available games created by other people. After the game is finished winner gets the prize. 
 
-## Available Scripts
+Please leave a ⭐ if you like it.
 
-In the project directory, you can run:
+![Game Preview](./game-preview.png)
 
-### `npm start`
+## Try It Out
+You can try it out yourself in [live demo](https://projects.tijan.dev/coin-flip) on BNB testnet. You can get testnet BNB to be able to test it [here](https://testnet.binance.org/faucet-smart).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+If you find any **errors** ⛔, please report them to [errors@tijan.dev](mailto:errors@tijan.dev) thanks 🙏.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies
+Technologies used in this project:
+- [Hardhat](https://hardhat.org/) for smart contracts
+- [Chainlink](https://chain.link) for getting VRF to determine winner in decentralized maner
+- [React](https://reactjs.org/)
+- [Moralis](https://moralis.io/) for authentication
+- [Web3UIKit](https://github.com/web3ui/web3uikit) for UI components
 
-### `npm test`
+**Smart contract source code is published [here](https://github.com/0xTijan/coin-flip-contract).**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## About Me
+Hi! 👋 I'm Tijan, passionate **blockchain developer** from Slovenia. Take a look at my [portfolio](https://tijan.dev).
 
-### `npm run build`
+You can get in touch with me through my [website](https://tijan.dev) or contact me on [twitter](https://twitter.com/0xTijan).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Do you like my work? You can support me by donating to this address: 0xC4C6A0bc6648a4F343bd86D7C48C9967530fbB48
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
